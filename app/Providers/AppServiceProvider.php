@@ -12,7 +12,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if ($this->app->environment('production')) {
+            $this->app->usePublicPath(
+                env('APP_URL') ? rtrim(env('APP_URL'), '/') : realpath(base_path('public'))
+            );
+        }
     }
 
     /**
